@@ -34,7 +34,7 @@ form {
     background-color: #4CAF50;
     color: white;
     padding: 12px 20px;
-    border: none;
+    margin-left: 10px;
     border-radius: 5px;
     cursor: pointer;
   }
@@ -42,4 +42,8 @@ form {
   /* Style the submit button on hover */
   input[type="submit"]:hover {
     background-color: #45a049;
+  }
+  .buttons {
+    display:flex;
+    
   }

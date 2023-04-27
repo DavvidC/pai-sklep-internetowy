@@ -1,18 +1,23 @@
+
+
+<title>Main Page</title>
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Main Page</title>
-    <link rel="stylesheet" href="src/assets/css/style.css" />
+    <title>Login Page</title>
+    <link rel="stylesheet" href="src/assets/css/style.css">
   </head>
   <body>
-    <h1>Main Page</h1>
-      <div class="buttons">
-        <a href="src/pages/login.php">
-          <button>Login</button>
-        </a>
-        <a href="src/pages/register.php">
-          <button>Sign up</button>
-        </a>
-      </div>
+    <h1>Login Page</h1>
+    <form action="process_login.php" method="post">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username">
+      <br>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password">
+      <br>
+      <button class = "buttonLogin">Login</button>
+    </form>
+    <a class = "buttonredirect" href="B:\DAWID\PROGRAMOWANIE\GIT\pai-sklep-internetowy\register.html"> <button>Sign in</button></a>
   </body>
 </html>

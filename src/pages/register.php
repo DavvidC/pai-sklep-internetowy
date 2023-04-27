@@ -10,7 +10,7 @@
       <label for="password">Password:</label>
       <input type="password" id="password" name="password" />
       <br />
-      <div class="buttons">
+      <div class="buttonLogin"> <!-- zmieniam nazwe z 'buttons' bo buttons uzywam do przekierowania na inne page pozdro 600 -->
         <input type="submit" value="Sign up" />
       </div>
     </form>

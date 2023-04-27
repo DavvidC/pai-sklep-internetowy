@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sign in</title>
+	<link rel="stylesheet" type="text/css" href="src\assets\css\register.css">
+</head>
+<body>
+	<h2>User Registration</h2>
+	<form action="process_register.php" method="post">
+		<label for="username">Username:</label>
+		<input type="text" id="username" name="username" required><br>
+		<label for="password">Password:</label>
+		<input type="password" id="password" name="password" required><br>
+		<label for="email">Email:</label>
+		<input type="email" id="email" name="email" required><br>
+		<div class="address">
+		<label for="address">Address:</label>
+		<textarea id="freeform" name="freeform" rows="4" cols="50"></textarea>
+		</div>
+		<br>
+		<button type="submit">Sign in</button>
+	</form>
+</body>
+</html>

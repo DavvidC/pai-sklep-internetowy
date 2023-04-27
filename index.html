@@ -1,22 +1,18 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Login Page</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Main Page</title>
+    <link rel="stylesheet" href="src/assets/css/style.css" />
   </head>
   <body>
-    <h1>Login Page</h1>
-    <form action="process_login.php" method="post">
-      <label for="username">Username:</label>
-      <input type="text" id="username" name="username" required>
-      <br>
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required>
-      <br>
+    <h1>Main Page</h1>
       <div class="buttons">
-      <input type="submit" value="Login">
-      <input type="submit" value="Sign up">
+        <a href="src/pages/login.php">
+          <button>Login</button>
+        </a>
+        <a href="src/pages/register.php">
+          <button>Sign up</button>
+        </a>
       </div>
-    </form>
   </body>
 </html>

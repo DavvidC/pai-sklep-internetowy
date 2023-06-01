@@ -20,7 +20,9 @@ form {
   
   /* Style the form input fields */
   input[type="text"],
-  input[type="password"] {
+  input[type="password"],
+  input[type="email"],
+  textarea {
     width: 250px;
     padding: 10px;
     margin: 10px 0;
@@ -44,7 +46,6 @@ form {
     background-color: #45a049;
   }
 
-  
   button {
     padding: 10px;
     background-color: #4CAF50;
@@ -53,6 +54,10 @@ form {
     border-radius: 5px;
     cursor: pointer;
   }
-  .buttonredirect {
-    margin-left: 455px;
+
+  .buttonwrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 5px;
   }

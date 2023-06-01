@@ -16,9 +16,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user = 'root';
         $password_db = '';
         $db_name = 'app-db';
-        $port = 3306;
 
-        $conn = mysqli_connect($host, $user, $password_db, $db_name, $port);
+        $conn = mysqli_connect($host, $user, $password_db, $db_name);
 
         if(!$conn) {
             echo 'DB connection error: ' . mysqli_connect_error();

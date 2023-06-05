@@ -35,7 +35,7 @@
     }
 
     // Obsługa dodawania przedmiotu do koszyka
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product_id']) && isset($_POST['action']) && $_POST['action'] === 'add') {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product_id']) && isset($_POST['add'])) {
         $product_id = $_POST['product_id'];
 
         // Sprawdzenie dostępności produktu
@@ -65,13 +65,13 @@
     }
 
     // Obsługa usuwania przedmiotu z koszyka
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product_id']) && isset($_POST['action']) && $_POST['action'] === 'remove') {
+    if (isset($_POST['remove']) ) {
+        // 
         $product_id = $_POST['product_id'];
-
         // Znalezienie indeksu produktu w koszyku
         $product_index = -1;
         foreach ($_SESSION['cart'] as $index => $product) {
-            if ($product['product_id'] === $product_id) {
+            if ($product['product_id'] == $product_id) {
                 $product_index = $index;
                 break;
             }
@@ -81,6 +81,27 @@
         if ($product_index !== -1) {
             unset($_SESSION['cart'][$product_index]);
             $_SESSION['cart'] = array_values($_SESSION['cart']);
+        }
+    }
+
+    // Obsługa zapisywania koszyka do bazy danych
+    if (isset($_SESSION['user_id'])) {
+        $user_id = $_SESSION['user_id'];
+
+        // Usunięcie poprzednich wpisów koszyka dla użytkownika
+        $sql_delete = "DELETE FROM cart_content WHERE cart_id = ?";
+        $stmt_delete = mysqli_prepare($conn, $sql_delete);
+        mysqli_stmt_bind_param($stmt_delete, "i", $user_id);
+        mysqli_stmt_execute($stmt_delete);
+
+        // Wstawienie aktualnej zawartości koszyka do bazy danych
+        foreach ($_SESSION['cart'] as $product) {
+            $product_name = $product['name'];
+
+            $sql_insert = "INSERT INTO cart_content (cart_id, product_name) VALUES (?, ?)";
+            $stmt_insert = mysqli_prepare($conn, $sql_insert);
+            mysqli_stmt_bind_param($stmt_insert, "is", $user_id, $product_name);
+            mysqli_stmt_execute($stmt_insert);
         }
     }
 
@@ -123,8 +144,7 @@
                     echo "<td>";
                     echo "<form action=\"cart.php\" method=\"POST\">";
                     echo "<input type=\"hidden\" name=\"product_id\" value=\"" . $product['product_id'] . "\">";
-                    echo "<input type=\"hidden\" name=\"action\" value=\"remove\">";
-                    echo "<input type=\"submit\" value=\"Usuń\">";
+                    echo "<input type=\"submit\" name=\"remove\" value=\"Usuń\">";
                     echo "</form>";
                     echo "</td>";
                     echo "</tr>";

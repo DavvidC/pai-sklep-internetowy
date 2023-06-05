@@ -59,8 +59,7 @@ if (!$result || mysqli_num_rows($result) === 0) {
                 echo "<td>";
                 echo "<form action=\"../php/cart.php\" method=\"POST\">";
                 echo "<input type=\"hidden\" name=\"product_id\" value=\"" . $row['product_id'] . "\">";
-                echo "<input type=\"hidden\" name=\"action\" value=\"add\">";
-                echo "<input type=\"submit\" value=\"Dodaj do koszyka\">";
+                echo "<input type=\"submit\" name=\"add\" value=\"Dodaj do koszyka\">";
                 echo "</form>";
                 echo "</td>";
                 echo "</tr>";

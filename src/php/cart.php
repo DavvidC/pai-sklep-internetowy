@@ -35,7 +35,7 @@
     }
 
     // Obsługa dodawania przedmiotu do koszyka
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product_id']) && isset($_POST['action']) && $_POST['action'] === 'add') {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product_id']) && isset($_POST['add'])) {
         $product_id = $_POST['product_id'];
 
         // Sprawdzenie dostępności produktu
@@ -65,13 +65,13 @@
     }
 
     // Obsługa usuwania przedmiotu z koszyka
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product_id']) && isset($_POST['action']) && $_POST['action'] === 'remove') {
+    if (isset($_POST['remove']) ) {
+        // 
         $product_id = $_POST['product_id'];
-
         // Znalezienie indeksu produktu w koszyku
         $product_index = -1;
         foreach ($_SESSION['cart'] as $index => $product) {
-            if ($product['product_id'] === $product_id) {
+            if ($product['product_id'] == $product_id) {
                 $product_index = $index;
                 break;
             }
@@ -123,8 +123,7 @@
                     echo "<td>";
                     echo "<form action=\"cart.php\" method=\"POST\">";
                     echo "<input type=\"hidden\" name=\"product_id\" value=\"" . $product['product_id'] . "\">";
-                    echo "<input type=\"hidden\" name=\"action\" value=\"remove\">";
-                    echo "<input type=\"submit\" value=\"Usuń\">";
+                    echo "<input type=\"submit\" name=\"remove\" value=\"Usuń\">";
                     echo "</form>";
                     echo "</td>";
                     echo "</tr>";

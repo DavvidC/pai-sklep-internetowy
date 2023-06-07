@@ -1,4 +1,13 @@
-<?php require_once("/templates/header-http.php"); ?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Register Page</title>
+    <link rel="stylesheet" href="../assets/css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
     <h1>Login Page</h1>
     <form method="POST" action="../php/process_login.php">
       <label for="email">Email:</label>

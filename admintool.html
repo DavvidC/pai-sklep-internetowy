@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Panel Administratora</title>
+  <link rel="stylesheet" type="text/css" href="admintool.css">
+</head>
+<body>
+  <header>
+    <h1>Panel Administratora</h1>
+  </header>
+  <main>
+    
+   <section>
+        <h2>Dodaj produkt</h2>
+        <form action="dodaj_produkt.php" method="POST">
+          <div>
+            <label for="nazwa">Nazwa przedmiotu:</label>
+            <input type="text" id="nazwa" name="nazwa" required>
+          </div>
+          <div>
+            <label for="opis">Opis:</label>
+            <textarea id="opis" name="opis" required></textarea>
+          </div>
+          <div>
+            <label for="cena">Cena:</label>
+            <input type="number" id="cena" name="cena" step="0.01" required>
+          </div>
+          <button type="submit">Dodaj produkt</button>
+        </form>
+      </section>
+    <section>
+      <h2>Usuń Produkt</h2>
+      <div class="dropdown">
+        <button class="dropdown-button">Wybierz opcję</button>
+        <ul class="dropdown-menu">
+          <li><a href="#">Opcja 1</a></li>
+          <li><a href="#">Opcja 2</a></li>
+          <li><a href="#">Opcja 3</a></li>
+          <li><a href="#">Opcja 4</a></li>
+        </ul>
+      </div>
+      <button class="remove-button">Usuń</button>
+    </section>
+    <hr>
+    <section>
+        <h2>Dodawanie nowego użytkownika</h2>
+        <form action="dodaj_uzytkownika.php" method="POST">
+            <label for="imie">Imię:</label>
+            <input type="text" id="imie" name="imie" required>
+          </div>
+          <div>
+            <label for="nazwisko">Nazwisko:</label>
+            <input type="text" id="nazwisko" name="nazwisko" required>
+          </div>
+          <div>
+            <label for="email">Adres email:</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div>
+            <label for="adres">Adres dostawy:</label>
+            <input type="text" id="adres" name="adres" required>
+          </div>
+          <button type="submit">Dodaj użytkownika</button>
+        </form>
+      </section>
+      <section>
+        <!--W powyższym kodzie dodaliśmy sekcję "Modyfikuj użytkownika" zawierającą formularz. 
+            Formularz posiada pola, w których można wprowadzić nowe dane użytkownika, takie jak "Imię", "Nazwisko", "Adres email" i "Adres dostawy".
+            Przy użyciu atrybutu required zapewniamy, że pola są wymagane przed wysłaniem formularza.
+            W pliku PHP "modyfikuj_uzytkownika.php" musisz obsłużyć przesłane dane z formularza i zaktualizować dane użytkownika w bazie danych na podstawie przekazanego identyfikatora użytkownika. 
+            W tym skrypcie PHP należy uwzględnić bezpieczeństwo danych, takie jak ochrona przed atakami typu SQL Injection.-->
+        <h2>Modyfikuj użytkownika</h2>
+        <form action="modyfikuj_uzytkownika.php" method="POST">
+          <div>
+            <label for="id">ID użytkownika:</label>
+            <input type="text" id="id" name="id" required>
+          </div>
+          <div>
+            <label for="imie">Imię:</label>
+            <input type="text" id="imie" name="imie" required>
+          </div>
+          <div>
+            <label for="nazwisko">Nazwisko:</label>
+            <input type="text" id="nazwisko" name="nazwisko" required>
+          </div>
+          <div>
+            <label for="email">Adres email:</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div>
+            <label for="adres">Adres dostawy:</label>
+            <input type="text" id="adres" name="adres" required>
+          </div>
+          <button type="submit">Zapisz zmiany</button>
+        </form>
+      </section>
+      <section>
+        <h2>Usuń użytkownika</h2>
+        <div class="dropdown">
+          <button class="dropdown-button">Wybierz opcję</button>
+          <ul class="dropdown-menu">
+            <li><a href="#">Opcja 1</a></li>
+            <li><a href="#">Opcja 2</a></li>
+            <li><a href="#">Opcja 3</a></li>
+            <li><a href="#">Opcja 4</a></li>
+          </ul>
+        </div>
+        <button class="remove-button">Usuń</button>
+      </section>
+      <hr>
+      <section>
+        <section>
+            <h2>Wyświetlanie wszystkich użytkowników</h2>
+            <div>
+              <button onclick="pokazWszystkichUzytkownikow()">Pokaż wszystkich użytkowników</button>
+            </div>
+            <div id="wynikWszystkichUzytkownikow"></div>
+          </section>
+      
+          <section>
+            <h2>Wyświetlanie pojedynczego użytkownika</h2>
+            <div>
+              <label for="idUzytkownika">ID Użytkownika:</label>
+              <input type="text" id="idUzytkownika">
+              <button onclick="pokazUzytkownika()">Pokaż użytkownika</button>
+            </div>
+            <div id="wynikUzytkownika"></div>
+          </section>
+        <!--TUTAJ MA BYC USUWANIE ZAMÓWIENIA-->
+     <!--   <h2>Usuń zamówienie</h2>
+        <div class="dropdown">
+          <button class="dropdown-button">Wybierz opcję</button>
+          <ul class="dropdown-menu">
+            <li><a href="#">Opcja 1</a></li>
+            <li><a href="#">Opcja 2</a></li>
+            <li><a href="#">Opcja 3</a></li>
+            <li><a href="#">Opcja 4</a></li>
+          </ul>
+        </div>
+        <button class="remove-button">Usuń</button>
+      </section> -->
+  </main>
+  <footer>
+    <p>&copy; 2023 Sklep Internetowy. Wszelkie prawa zastrzeżone.</p>
+  </footer>
+</body>
+</html>

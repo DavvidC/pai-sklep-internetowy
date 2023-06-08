@@ -1,0 +1,50 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  header {
+    background-color: #333;
+    padding: 10px;
+  }
+  
+  header h1 {
+    margin: 0;
+    color: #fff;
+  }
+  
+  main {
+    padding: 20px;
+  }
+  
+  section {
+    margin-bottom: 20px;
+  }
+  
+  section h2 {
+    margin-top: 0;
+  }
+  
+  footer {
+    background-color: #f2f2f2;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  p {
+    margin: 0;
+  }
+  
+  p.label {
+    font-weight: bold;
+  }
+  
+  p.card-number {
+    font-family: "Courier New", monospace;
+    font-size: 16px;
+    color: #333;
+    letter-spacing: 2px;
+  }
+  
+  

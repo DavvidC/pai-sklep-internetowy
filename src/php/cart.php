@@ -97,27 +97,6 @@ if (isset($_POST['remove'])) {
     }
 }
 
-// Obsługa zapisywania koszyka do bazy danych
-if (isset($_SESSION['user_id'])) {
-    $user_id = $_SESSION['user_id'];
-
-    // Usunięcie poprzednich wpisów koszyka dla użytkownika
-    $sql_delete = "DELETE FROM cart_content WHERE cart_id = ?";
-    $stmt_delete = mysqli_prepare($conn, $sql_delete);
-    mysqli_stmt_bind_param($stmt_delete, "i", $user_id);
-    mysqli_stmt_execute($stmt_delete);
-
-    // Wstawienie aktualnej zawartości koszyka do bazy danych
-    foreach ($_SESSION['cart'] as $product) {
-        $product_name = $product['name'];
-
-        $sql_insert = "INSERT INTO cart_content (cart_id, product_name) VALUES (?, ?)";
-        $stmt_insert = mysqli_prepare($conn, $sql_insert);
-        mysqli_stmt_bind_param($stmt_insert, "is", $user_id, $product_name);
-        mysqli_stmt_execute($stmt_insert);
-    }
-}
-
 // Zamykanie połączenia z bazą danych
 mysqli_close($conn);
 ?>
@@ -133,16 +112,20 @@ mysqli_close($conn);
 </head>
 <body>
 <header>
-    <h1>Koszyk</h1>
-    <div class="cart">
-        <span class="cart-count"><?php echo array_sum(array_column($_SESSION['cart'], 'quantity')); ?></span>
-        <img class="cart-icon" src="../assets/gfx/cart.svg" alt="Cart Icon">
+    <div class="left">
+        <h1>Koszyk</h1>
+    </div>
+    <div class="right">
+        <div class="cart-items" id="cart-items">
+            <a href="../pages/mainpage.php">Powrót do strony głównej</a>
+        </div>
+        <div class="cart">
+            <span class="cart-count"><?php echo array_sum(array_column($_SESSION['cart'], 'quantity')); ?></span>
+            <img class="cart-icon" src="../assets/gfx/cart.svg" alt="Cart Icon">
+        </div>
     </div>
 </header>
 <main>
-    <div class="cart-items" id="cart-items">
-        <a href="../pages/mainpage.php">Powrót do strony głównej</a>
-    </div>
     <div class="product-grid" id="product-grid">
         <div class="grid-container">
             <?php
@@ -177,9 +160,9 @@ mysqli_close($conn);
     </div>
 </main>
 <footer>
-    <p>&copy; 2023 Sklep internetowy. All rights reserved.</p>
+    <div class="checkout">
+        <a href="../pages/checkout.php">Przejdź do płatności</a>
+    </div>
 </footer>
-
-<script src="../assets/js/app.js"></script>
 </body>
 </html>

@@ -1,26 +1,26 @@
-<title>Main Page</title>
+<title>Sklep internetowy - Strona logowania</title>
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Login Page</title>
-    <link rel="stylesheet" href="src/assets/css/style.css">
+    <title>Strona logowania</title>
+    <link rel="stylesheet" href="src/assets/css/login.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
   </head>
   <body>
-    <h1>Login Page</h1>
+    <h1>Logowanie</h1>
     <form action="src/php/process_login.php" method="post">
       <label for="email">Email:</label>
       <input type="text" id="email" name="email">
       <br>
-      <label for="password">Password:</label>
+      <label for="password">Hasło:</label>
       <input type="password" id="password" name="password">
       <br>
-      <button type="submit" class="buttonLogin">Login</button>
-    </form>
-    <div class="buttonWrapper">
-      <a class="buttonredirect" href="register.html"><button>Sign in</button></a>
+    <div >
+      <button type="submit" class="buttonLogin">Zaloguj</button>
+      <a class="buttonredirect" href="register.html"><button>Rejestracja</button></a>
     </div>
+    </form>
   </body>
 </html>

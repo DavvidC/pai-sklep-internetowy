@@ -97,7 +97,7 @@ body {
     border-radius: 3px;
   }
   
-  button[type="submit"] {
+  button {
     display: block;
     padding: 10px;
     background-color: #333;

@@ -1,28 +1,69 @@
 * {
-    font-family: 'Lato', sans-serif;
-  }
+	font-family: 'Lato', sans-serif;
+}
 
 label {
-	display: inline-block;
-	width: 100px;
-	text-align: right;
-	margin-right: 10px;
+	margin-top: 20px;
+	font-size: 1.2em;
 }
 
-input[type="text"], input[type="password"], input[type="email"] {
-	width: 200px;
-	padding: 5px;
-	margin-bottom: 10px;
+h1 {
+	text-align: center;
+	margin-top: 100px;
 }
+
+form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 50px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+textarea {
+	width: 250px;
+	padding: 10px;
+	margin: 10px 0;
+	border: 1px solid #333;
+	border-radius: 5px;
+	background-color: #fff;
+}
+
+input[type="submit"],
+button {
+  padding: 10px;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Style the submit button on hover */
+input[type="submit"]:hover,
+button:hover {
+  background: color #333;
+}
+
 input[type="address"] {
 	width: 200px;
 	height: 100px;
 	padding: 5px;
 	margin-bottom: 10px;
 }
+
 .address {
 	display: flex;
 	margin-left: 5px;
+}
+
+.register-div {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding-top: 10px;
 }
 
 button[type="submit"] {
@@ -32,5 +73,4 @@ button[type="submit"] {
 	border: none;
 	border-radius: 5px;
 	cursor: pointer;
-	margin-left: 435px;
 }

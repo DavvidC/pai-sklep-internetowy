@@ -44,7 +44,8 @@ button {
 /* Style the submit button on hover */
 input[type="submit"]:hover,
 button:hover {
-  background: color #333;;
+  background: color #333;
+  ;
 }
 
 .buttonwrapper {
@@ -52,4 +53,10 @@ button:hover {
   flex-direction: column;
   align-items: center;
   padding-top: 5px;
+}
+
+.register-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

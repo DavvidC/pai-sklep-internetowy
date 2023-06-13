@@ -180,6 +180,21 @@
     text-decoration: none;
   }
 
+  .admin-button {
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .admin {
+    margin-right: 5px;
+  }
+
   .right {
     display: flex;
     flex-direction: row;

@@ -1,33 +1,28 @@
 <?php
-// Połączenie z bazą danych
-$servername = "nazwa_serwera";
-$username = "nazwa_uzytkownika";
-$password = "haslo";
-$dbname = "nazwa_bazy_danych";
+    $host = 'localhost';
+    $user = 'root';
+    $password_db = '';
+    $db_name = 'app-db';
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+    $conn = mysqli_connect($host, $user, $password_db, $db_name);
 
-// Sprawdzenie połączenia
-if ($conn->connect_error) {
-    die("Nie udało się połączyć z bazą danych: " . $conn->connect_error);
-}
+    if ($conn->connect_error) {
+        die("Nie udało się połączyć z bazą danych: " . $conn->connect_error);
+    }
 
-// Pobranie danych z formularza
-$id = $_POST['id'];
-$imie = $_POST['imie'];
-$nazwisko = $_POST['nazwisko'];
-$email = $_POST['email'];
-$adres = $_POST['adres'];
+    $id = $_POST['id'];
+    $imie = $_POST['firstname'];
+    $nazwisko = $_POST['surname'];
+    $email = $_POST['email'];
+    $adres = $_POST['delivery_address'];
 
-// Aktualizacja danych użytkownika w bazie danych
-$sql = "UPDATE uzytkownicy SET imie='$imie', nazwisko='$nazwisko', email='$email', adres='$adres' WHERE id='$id'";
+    $sql = "UPDATE users SET firstname='$imie', surname='$nazwisko', email='$email', delivery_address='$adres' WHERE user_id='$id'";
 
-if ($conn->query($sql) === TRUE) {
-    echo "Dane użytkownika zostały zaktualizowane.";
-} else {
-    echo "Wystąpił błąd podczas aktualizacji danych użytkownika: " . $conn->error;
-}
+    if ($conn->query($sql) === TRUE) {
+        echo "Dane użytkownika zostały zaktualizowane.";
+    } else {
+        echo "Wystąpił błąd podczas aktualizacji danych użytkownika: " . $conn->error;
+    }
 
-// Zamknięcie połączenia z bazą danych
-$conn->close();
+    $conn->close();
 ?>

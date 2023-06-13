@@ -125,14 +125,14 @@
             W pliku PHP "modyfikuj_uzytkownika.php" musisz obsłużyć przesłane dane z formularza i zaktualizować dane użytkownika w bazie danych na podstawie przekazanego identyfikatora użytkownika. 
             W tym skrypcie PHP należy uwzględnić bezpieczeństwo danych, takie jak ochrona przed atakami typu SQL Injection.-->
       <h2>Modyfikuj użytkownika</h2>
-      <form action="modyfikuj_uzytkownika.php" method="POST">
+      <form action="modify_user.php" method="POST">
         <div>
           <label for="id">ID użytkownika:</label>
           <input type="text" id="id" name="id" required>
         </div>
         <div>
-          <label for="imie">Imię:</label>
-          <input type="text" id="imie" name="imie" required>
+          <label for="firstname">Imię:</label>
+          <input type="text" id="firstname" name="firstname" required>
         </div>
         <div>
           <label for="surname">Nazwisko:</label>
@@ -152,23 +152,59 @@
     <section>
       <h2>Usuń użytkownika</h2>
       <div class="dropdown">
-        <button class="dropdown-button">Wybierz opcję</button>
+        <button class="dropdown-button">Wybierz użytkownika do usunięcia</button>
         <ul class="dropdown-menu">
-          <li><a href="#">Opcja 1</a></li>
-          <li><a href="#">Opcja 2</a></li>
-          <li><a href="#">Opcja 3</a></li>
-          <li><a href="#">Opcja 4</a></li>
+          <?php
+              $host = 'localhost';
+              $user = 'root';
+              $password_db = '';
+              $db_name = 'app-db';
+
+              $conn = mysqli_connect($host, $user, $password_db, $db_name);
+
+              if ($conn->connect_error) {
+                die("Połączenie nieudane: " . $conn->connect_error);
+              }
+
+              if (isset($_GET['user_id'])) {
+                $userId = $_GET['user_id'];
+
+                $deleteSql = "DELETE FROM users WHERE user_id = $userId";
+                if ($conn->query($deleteSql) === TRUE) {
+                  echo "Produkt został usunięty z bazy danych.";
+                } else {
+                  echo "Błąd podczas usuwania produktu: " . $conn->error;
+                }
+              }
+
+              $sql = "SELECT * FROM users LIMIT 5;";
+              $result = $conn->query($sql);
+
+              if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                  $userId = $row['user_id'];
+                  $username = $row['username'];
+                  $email = $row['email'];
+                  echo '<li><a href="?id=' . $userId . '">' . $username . ' (' . $email . ')</a></li>';
+                }
+              } else {
+                echo 'Brak użytkowników w bazie danych.';
+              }
+
+              $conn->close();
+            ?>
         </ul>
       </div>
-      <button class="remove-button">Usuń</button>
     </section>
     <hr>
     <section>
       <section>
         <h2>Wyświetlanie wszystkich użytkowników</h2>
-        <div>
-          <button onclick="pokazWszystkichUzytkownikow()">Pokaż wszystkich użytkowników</button>
-        </div>
+        <form action="view_users.php" method="GET">
+          <div>
+            <button type="submit">Pokaż wszystkich użytkowników</button>
+          </div>
+        </form>
         <div id="wynikWszystkichUzytkownikow"></div>
       </section>
 

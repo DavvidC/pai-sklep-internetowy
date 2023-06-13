@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $sql = "INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$password')";
             if (mysqli_query($conn, $sql)) {
                 // Przekierowanie po upływie 5 sekund
-                header("Refresh: 5; url=../../index.html");
+                header("Refresh: 5; url=../pages/mainpage.php");
                 echo 'Konto zostało utworzone pomyślnie. Zostaniesz przekierowany na stronę główną za 5 sekund...';
                 exit();
             } else {

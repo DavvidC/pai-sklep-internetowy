@@ -40,6 +40,11 @@ if (!$result || mysqli_num_rows($result) === 0) {
             <h1>Strona główna</h1>
         </div>
         <div class="right">
+            <div class="admin">
+                <form action="../php/admin/admintool.php" method="GET">
+                    <input type="submit" class="logout-button" value="Panel admina">
+                </form>
+            </div>
             <div class="logout">
                 <form action="../php/process_logout.php" method="POST">
                     <input type="submit" class="logout-button" value="Wyloguj się">

@@ -12,7 +12,7 @@
 
 <body>
 	<h1>Rejestracja</h1>
-	<form action="../php/process_register.php" method="post">
+	<form action="../php/process_register.php" method="post" onsubmit="return validateForm()">
 		<label for="username">Nazwa użytkownika:</label>
 		<input type="text" id="username" name="username" required><br>
 		<label for="email">Email:</label>
@@ -25,5 +25,29 @@
 		</div>
 	</form>
 </body>
+<script type="text/javascript" defer>
+	function validateForm() {
+		var passwordInput = document.getElementById("password");
+		var password = passwordInput.value;
 
+		if (password.length < 8 || password.length > 64) {
+			alert("Hasło musi mieć od 8 do 64 znaków.");
+			return false;
+		}
+
+		var digitRegex = /\d/;
+		if (!digitRegex.test(password)) {
+			alert("Hasło musi zawierać przynajmniej jedną cyfrę.");
+			return false;
+		}
+
+		var specialCharRegex = /[^a-zA-Z0-9]/;
+		if (!specialCharRegex.test(password)) {
+			alert("Hasło musi zawierać przynajmniej jeden znak specjalny.");
+			return false;
+		}
+
+		return true;
+	}
+</script>
 </html>

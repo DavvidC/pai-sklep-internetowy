@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="../../assets/css/admintool.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 <body>
@@ -40,7 +41,7 @@
     </section>
 
     <section>
-      <h2>Usuń Produkt</h2>
+      <h2>Usuń produkt</h2>
       <div class="dropdown">
         <button class="dropdown-button">Wybierz opcję do usunięcia</button>
         <ul class="dropdown-menu">
@@ -119,11 +120,6 @@
     </section>
 
     <section>
-      <!--W powyższym kodzie dodaliśmy sekcję "Modyfikuj użytkownika" zawierającą formularz. 
-            Formularz posiada pola, w których można wprowadzić nowe dane użytkownika, takie jak "Imię", "Nazwisko", "Adres email" i "Adres dostawy".
-            Przy użyciu atrybutu required zapewniamy, że pola są wymagane przed wysłaniem formularza.
-            W pliku PHP "modyfikuj_uzytkownika.php" musisz obsłużyć przesłane dane z formularza i zaktualizować dane użytkownika w bazie danych na podstawie przekazanego identyfikatora użytkownika. 
-            W tym skrypcie PHP należy uwzględnić bezpieczeństwo danych, takie jak ochrona przed atakami typu SQL Injection.-->
       <h2>Modyfikuj użytkownika</h2>
       <form action="modify_user.php" method="POST">
         <div>
@@ -155,44 +151,44 @@
         <button class="dropdown-button">Wybierz użytkownika do usunięcia</button>
         <ul class="dropdown-menu">
           <?php
-              $host = 'localhost';
-              $user = 'root';
-              $password_db = '';
-              $db_name = 'app-db';
+          $host = 'localhost';
+          $user = 'root';
+          $password_db = '';
+          $db_name = 'app-db';
 
-              $conn = mysqli_connect($host, $user, $password_db, $db_name);
+          $conn = mysqli_connect($host, $user, $password_db, $db_name);
 
-              if ($conn->connect_error) {
-                die("Połączenie nieudane: " . $conn->connect_error);
-              }
+          if ($conn->connect_error) {
+            die("Połączenie nieudane: " . $conn->connect_error);
+          }
 
-              if (isset($_GET['user_id'])) {
-                $userId = $_GET['user_id'];
+          if (isset($_GET['user_id'])) {
+            $userId = $_GET['user_id'];
 
-                $deleteSql = "DELETE FROM users WHERE user_id = $userId";
-                if ($conn->query($deleteSql) === TRUE) {
-                  echo "Produkt został usunięty z bazy danych.";
-                } else {
-                  echo "Błąd podczas usuwania produktu: " . $conn->error;
-                }
-              }
+            $deleteSql = "DELETE FROM users WHERE user_id = $userId";
+            if ($conn->query($deleteSql) === TRUE) {
+              echo "Produkt został usunięty z bazy danych.";
+            } else {
+              echo "Błąd podczas usuwania produktu: " . $conn->error;
+            }
+          }
 
-              $sql = "SELECT * FROM users LIMIT 5;";
-              $result = $conn->query($sql);
+          $sql = "SELECT * FROM users LIMIT 5;";
+          $result = $conn->query($sql);
 
-              if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                  $userId = $row['user_id'];
-                  $username = $row['username'];
-                  $email = $row['email'];
-                  echo '<li><a href="?id=' . $userId . '">' . $username . ' (' . $email . ')</a></li>';
-                }
-              } else {
-                echo 'Brak użytkowników w bazie danych.';
-              }
+          if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+              $userId = $row['user_id'];
+              $username = $row['username'];
+              $email = $row['email'];
+              echo '<li><a href="?id=' . $userId . '">' . $username . ' (' . $email . ')</a></li>';
+            }
+          } else {
+            echo 'Brak użytkowników w bazie danych.';
+          }
 
-              $conn->close();
-            ?>
+          $conn->close();
+          ?>
         </ul>
       </div>
     </section>
@@ -200,40 +196,82 @@
     <section>
       <section>
         <h2>Wyświetlanie wszystkich użytkowników</h2>
-        <form action="view_users.php" method="GET">
+        <form id="viewUsersForm" action="view_all_users.php" method="GET">
           <div>
             <button type="submit">Pokaż wszystkich użytkowników</button>
+            <button id="hideUsersButton" style="display: none; margin-top: 5px;">Ukryj użytkowników</button>
           </div>
         </form>
-        <div id="wynikWszystkichUzytkownikow"></div>
+        <div id="allUsersResult"></div>
+        <script defer>
+          $(document).ready(function () {
+            var usersVisible = false;
+
+            $('#viewUsersForm').submit(function (e) {
+              e.preventDefault();
+
+              if (!usersVisible) {
+                $.ajax({
+                  type: 'GET',
+                  url: 'view_users.php',
+                  success: function (response) {
+                    $('#allUsersResult').html(response);
+                    usersVisible = true;
+                    $('#hideUsersButton').show();
+                  }
+                });
+              }
+            });
+
+            $('#hideUsersButton').click(function (e) {
+              e.preventDefault();
+              $('#allUsersResult').empty();
+              usersVisible = false;
+              $(this).hide();
+            });
+          });
+        </script>
       </section>
 
       <section>
         <h2>Wyświetlanie pojedynczego użytkownika</h2>
         <div>
-          <label for="idUzytkownika">ID Użytkownika:</label>
-          <input type="text" id="idUzytkownika">
-          <button onclick="pokazUzytkownika()">Pokaż użytkownika</button>
+          <label for="user_id">ID użytkownika:</label>
+          <input type="text" id="user_id" name="user_id">
+          <button id="showUserBtn">Pokaż użytkownika</button>
+          <button id="hideUserBtn" style="display: none; margin-top: 5px;">Ukryj użytkownika</button>
         </div>
-        <div id="wynikUzytkownika"></div>
+        <div id="userResult"></div>
+        <script defer>
+          $(document).ready(function () {
+            $('#showUserBtn').click(function () {
+              var userId = $('#user_id').val();
+
+              if (userId) {
+                $.ajax({
+                  type: 'GET',
+                  url: 'view_user.php',
+                  data: { user_id: userId },
+                  success: function (response) {
+                    $('#userResult').html(response);
+                    $('#hideUserBtn').show(); // Pokaż przycisk po wyświetleniu użytkownika
+                  }
+                });
+              }
+            });
+
+            $('#hideUserBtn').click(function () {
+              $('#userResult').empty(); // Wyczyść zawartość użytkownika
+              $('#hideUserBtn').hide(); // Ukryj przycisk
+            });
+          });
+        </script>
       </section>
-      <!--TUTAJ MA BYC USUWANIE ZAMÓWIENIA-->
-      <!--   <h2>Usuń zamówienie</h2>
-        <div class="dropdown">
-          <button class="dropdown-button">Wybierz opcję</button>
-          <ul class="dropdown-menu">
-            <li><a href="#">Opcja 1</a></li>
-            <li><a href="#">Opcja 2</a></li>
-            <li><a href="#">Opcja 3</a></li>
-            <li><a href="#">Opcja 4</a></li>
-          </ul>
-        </div>
-        <button class="remove-button">Usuń</button>
-      </section> -->
   </main>
   <footer>
     <p>&copy; 2023 Sklep Internetowy. Wszelkie prawa zastrzeżone.</p>
   </footer>
+
 </body>
 
 </html>

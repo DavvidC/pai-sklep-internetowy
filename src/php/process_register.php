@@ -1,37 +1,44 @@
 <?php
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $username = htmlspecialchars($_POST['username']);
+        $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
+        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-    $username = htmlspecialchars($_POST['username']);
-    $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-
-    if (empty($username) || empty($email) || empty($password)) {
-        echo 'Please fill in all required fields.';
-    } elseif (!$email) {
-        echo 'Provided e-mail address isn\t valid.';
-    } else {
-
-        $host = 'localhost';
-        $user = 'root';
-        $password_db = '';
-        $db_name = 'app-db';
-
-        $conn = mysqli_connect($host, $user, $password_db, $db_name);
-
-        if (!$conn) {
-            echo 'DB connection error: ' . mysqli_connect_error();
+        if (empty($username) || empty($email) || empty($password)) {
+            echo 'Please fill in all required fields.';
+        } elseif (!$email) {
+            echo 'Provided e-mail address is not valid.';
         } else {
-            $sql = "INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$password')";
-            if (mysqli_query($conn, $sql)) {
-                // Przekierowanie po upływie 5 sekund
-                header("Refresh: 5; url=../pages/mainpage.php");
-                echo 'Konto zostało utworzone pomyślnie. Zostaniesz przekierowany na stronę główną za 5 sekund...';
-                exit();
+
+            $host = 'localhost';
+            $user = 'root';
+            $password_db = '';
+            $db_name = 'app-db';
+
+            $conn = mysqli_connect($host, $user, $password_db, $db_name);
+
+            if (!$conn) {
+                echo 'DB connection error: ' . mysqli_connect_error();
             } else {
-                echo 'Error while creating user: ' . mysqli_error($conn);
+                $check_email_sql = "SELECT * FROM users WHERE email = '$email'";
+                $result = mysqli_query($conn, $check_email_sql);
+
+                if (mysqli_num_rows($result) > 0) {
+                    echo 'This e-mail address is already registered.';
+                } else {
+                    $insert_user_sql = "INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$password')";
+
+                    if (mysqli_query($conn, $insert_user_sql)) {
+                        header("Refresh: 5; url=../pages/mainpage.php");
+                        echo 'Account created successfully. You will be redirected to the main page in 5 seconds...';
+                        exit();
+                    } else {
+                        echo 'Error while creating user: ' . mysqli_error($conn);
+                    }
+                }
+                mysqli_close($conn);
             }
-            mysqli_close($conn);
         }
     }
-}
+?>

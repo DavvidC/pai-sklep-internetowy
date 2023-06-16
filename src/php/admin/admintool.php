@@ -145,6 +145,7 @@
         <button type="submit">Zapisz zmiany</button>
       </form>
     </section>
+
     <section>
       <h2>Usuń użytkownika</h2>
       <div class="dropdown">
@@ -193,6 +194,7 @@
       </div>
     </section>
     <hr>
+
     <section>
       <section>
         <h2>Wyświetlanie wszystkich użytkowników</h2>
@@ -213,7 +215,7 @@
               if (!usersVisible) {
                 $.ajax({
                   type: 'GET',
-                  url: 'view_users.php',
+                  url: 'view_all_users.php',
                   success: function (response) {
                     $('#allUsersResult').html(response);
                     usersVisible = true;

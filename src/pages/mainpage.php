@@ -8,16 +8,13 @@ $db_name = 'app-db';
 
 $conn = mysqli_connect($host, $user, $password_db, $db_name);
 
-// Sprawdzenie połączenia
 if (!$conn) {
     die("Błąd połączenia: " . mysqli_connect_error());
 }
 
-// Pobranie danych o produktach
 $sql = "SELECT * FROM products";
 $result = mysqli_query($conn, $sql);
 
-// Sprawdzenie, czy zapytanie zwróciło wyniki
 if (!$result || mysqli_num_rows($result) === 0) {
     echo "Brak dostępnych produktów.";
 } else {

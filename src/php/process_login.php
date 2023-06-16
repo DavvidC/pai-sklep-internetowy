@@ -1,5 +1,4 @@
 <?php
-
     session_start();
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -8,7 +7,7 @@
         $password = $_POST['password'];
 
         if (empty($email) || empty($password)) {
-            echo 'Please fill in all required fields.';
+            echo 'Proszę uzupełnić wszystkie pola.';
         } else {
 
             $host = 'localhost';
@@ -19,28 +18,32 @@
             $conn = mysqli_connect($host, $user, $password_db, $db_name);
 
             if (!$conn) {
-                echo 'DB connection error: ' . mysqli_connect_error();
+                echo 'Błąd połączenia bazy danych: ' . mysqli_connect_error();
             } else {
-                $sql = "SELECT * FROM users WHERE email='$email'";
-                $result = mysqli_query($conn, $sql);
+                // Użyj parametryzowanych zapytań
+                $sql = "SELECT * FROM users WHERE email=?";
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param("s", $email);
+                $stmt->execute();
+                $result = $stmt->get_result();
 
-                if (mysqli_num_rows($result) > 0) {
-                    $user = mysqli_fetch_assoc($result);
+                if ($result->num_rows > 0) {
+                    $user = $result->fetch_assoc();
                     if (password_verify($password, $user['password'])) {
                         $_SESSION['logged_in'] = true;
                         $_SESSION['user_id'] = $user['id'];
                         session_regenerate_id();
                         header('Location: ../pages/mainpage.php');
-                        exit(); // Dodaj exit(), aby przerwać dalsze wykonywanie kodu
+                        exit();
                     } else {
-                        echo 'Invalid login details';
+                        echo 'Błędne dane logowania - spróbuj ponownie.';
                     }
                 } else {
-                    echo 'Invalid login details';
+                    echo 'Błędne dane logowania - spróbuj ponownie.';
                 }
-                mysqli_close($conn);
+                $stmt->close();
+                $conn->close();
             }
         }
     }
-
 ?>

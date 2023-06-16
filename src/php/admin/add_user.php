@@ -17,13 +17,18 @@
     $email = $_POST['email'];
     $delivery_address = $_POST['delivery_address'];
 
-    $sql = "INSERT INTO users (firstname, surname, username, password, email, delivery_address) VALUES ('$firstname', '$surname', '$username', '$password', '$email', '$delivery_address')";
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-    if ($conn->query($sql) === TRUE) {
+    $sql = "INSERT INTO users (firstname, surname, username, password, email, delivery_address) VALUES (?, ?, ?, ?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssssss", $firstname, $surname, $username, $hashed_password, $email, $delivery_address);
+
+    if ($stmt->execute()) {
         echo "Użytkownik został dodany do tabeli users.";
     } else {
-        echo "Błąd podczas dodawania użytkownika: " . $conn->error;
+        echo "Błąd podczas dodawania użytkownika: " . $stmt->error;
     }
 
+    $stmt->close();
     $conn->close();
 ?>

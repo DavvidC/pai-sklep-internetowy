@@ -16,13 +16,16 @@
     $email = $_POST['email'];
     $adres = $_POST['delivery_address'];
 
-    $sql = "UPDATE users SET firstname='$imie', surname='$nazwisko', email='$email', delivery_address='$adres' WHERE user_id='$id'";
+    $sql = "UPDATE users SET firstname=?, surname=?, email=?, delivery_address=? WHERE user_id=?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssssi", $imie, $nazwisko, $email, $adres, $id);
 
-    if ($conn->query($sql) === TRUE) {
+    if ($stmt->execute()) {
         echo "Dane użytkownika zostały zaktualizowane.";
     } else {
-        echo "Wystąpił błąd podczas aktualizacji danych użytkownika: " . $conn->error;
+        echo "Wystąpił błąd podczas aktualizacji danych użytkownika: " . $stmt->error;
     }
 
+    $stmt->close();
     $conn->close();
 ?>

@@ -39,19 +39,18 @@ if (!$result || mysqli_num_rows($result) === 0) {
         </div>
         <div class="right">
             <div class="admin">
-                <form action="../php/admin/admintool.php" method="GET">
+                <!-- <form action="../php/admin/admintool.php" method="GET">
                     <input type="submit" class="logout-button" value="Panel admina">
-                </form>
+                </form> -->
                <?php
-            /* Sprawdzenie, czy użytkownik ma uprawnienia administratora
-            if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] === true) {
-                echo "<div class='admin'>";
-                echo "<form action='../php/admin/admintool.php' method='GET'>";
-                echo "<input type='submit' class='logout-button' value='Panel admina'>";
-                echo "</form>";
-                echo "</div>";
-            } */
-            ?>
+                if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == 1) {
+                    echo "<div class='admin'>";
+                    echo "<form action='../php/admin/admintool.php' method='GET'>";
+                    echo "<input type='submit' class='logout-button' value='Panel admina'>";
+                    echo "</form>";
+                    echo "</div>";
+                }
+                ?>
             </div>
             <div class="logout">
                 <form action="../php/process_logout.php" method="POST">

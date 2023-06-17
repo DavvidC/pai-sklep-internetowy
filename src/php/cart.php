@@ -159,7 +159,7 @@ mysqli_close($conn);
         <span class="total-amount"><?php echo number_format($totalPrice, 2); ?> PLN</span>
     </div>
     <div>
-            <a href="../../checkout.html">Przejdź do płatności</a>   
+        <button class="checkout-btn" onclick="location.href='checkout.php'">Przejdź do płatności</button>
     </div>
 </main>
  <footer>

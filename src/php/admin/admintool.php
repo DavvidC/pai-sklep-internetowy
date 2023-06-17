@@ -12,9 +12,24 @@
 </head>
 
 <body>
-  <header>
-    <h1>Panel Administratora</h1>
-  </header>
+<header>
+        <div class="left">
+            <h1>Panel admina</h1>
+        </div>
+        <div class="right">
+            <div class="admin">
+                <form action="../../pages/mainpage.php" method="GET">
+                    <input type="submit" class="logout-button" value="Strona główna">
+                </form>
+            </div>
+            <div class="logout">
+                <form action="../process_logout.php" method="POST">
+                    <input type="submit" class="logout-button" value="Wyloguj się">
+                </form>
+            </div>
+            <div class="cart">
+        </div>
+    </header>
   <main>
 
     <section>

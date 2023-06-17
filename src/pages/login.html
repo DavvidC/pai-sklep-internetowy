@@ -1,26 +1,47 @@
-<title>Sklep internetowy - Strona logowania</title>
 <!DOCTYPE html>
-<html lang="pl-PL">
+<html lang="pl">
   <head>
-    <title>Strona logowania</title>
+    <title>Strona logowania - Sklep internetowy</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="../assets/css/login.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <script>
+      function validateForm() {
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+        var errorContainer = document.getElementById("error-container");
+        var errorMessage = "";
+
+        if (email === "") {
+          errorMessage += "Proszę wprowadzić adres email.<br>";
+        }
+        
+        if (password === "") {
+          errorMessage += "Proszę wprowadzić hasło.<br>";
+        }
+
+        if (errorMessage !== "") {
+          errorContainer.innerHTML = errorMessage;
+          return false;
+        }
+      }
+    </script>
   </head>
   <body>
     <h1>Logowanie</h1>
-    <form action="../php/process_login.php" method="post">
+    <form action="../php/process_login.php" method="post" onsubmit="return validateForm()">
       <label for="email">Email:</label>
       <input type="text" id="email" name="email">
       <br>
       <label for="password">Hasło:</label>
       <input type="password" id="password" name="password">
       <br>
-    <div>
-      <button type="submit" class="buttonLogin">Zaloguj</button>
-    </div>
+      <div id="error-container" class="error"></div>
+      <div>
+        <button type="submit" class="buttonLogin">Zaloguj</button>
+      </div>
     </form>
     <div class="register-div">
       <a class="buttonredirect" href="register.html"><button>Rejestracja</button></a>

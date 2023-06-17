@@ -16,7 +16,12 @@
   footer {
     background-color: #333;
     color: #fff;
-    padding: 1px;
+    padding: 20px;
+    text-align: center;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
   }
 
   h1 {
@@ -63,7 +68,9 @@
     max-width: 100%;
     height: auto;
   }
-
+  .cart-items {
+    margin-right: 5px;
+  }
   .cart-items a {
     text-decoration: none;
     color: inherit;
@@ -167,10 +174,12 @@
     background: url('../assets/gfx/cart.svg') no-repeat;
     width: 20px;
     height: 20px;
+    margin-left: 10px;
   }
 
   .logout-button {
     border: none;
+    margin-left: 10px;
     background: none;
     padding: 0;
     cursor: pointer;
@@ -200,3 +209,4 @@
     flex-direction: row;
     align-items: center;
   }
+ 

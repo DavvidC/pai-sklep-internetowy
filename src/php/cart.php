@@ -158,11 +158,12 @@ mysqli_close($conn);
         <span>Łącznie: </span>
         <span class="total-amount"><?php echo number_format($totalPrice, 2); ?> PLN</span>
     </div>
-</main>
-<footer>
-    <div class="checkout">
-        <a href="../pages/checkout.php">Przejdź do płatności</a>
+    <div>
+            <a href="../../checkout.html">Przejdź do płatności</a>   
     </div>
+</main>
+ <footer>
+    <p>&copy; 2023 Sklep internetowy</p>
 </footer>
 </body>
 </html>

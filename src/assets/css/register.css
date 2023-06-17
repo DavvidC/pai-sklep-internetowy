@@ -41,11 +41,6 @@ button {
   cursor: pointer;
 }
 
-/* Style the submit button on hover */
-input[type="submit"]:hover,
-button:hover {
-  background: color #333;
-}
 
 input[type="address"] {
 	width: 200px;

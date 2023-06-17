@@ -18,6 +18,7 @@ $result = mysqli_query($conn, $sql);
 if (!$result || mysqli_num_rows($result) === 0) {
     echo "Brak dostępnych produktów.";
 } else {
+    
 ?>
 
 <!DOCTYPE html>
@@ -41,6 +42,16 @@ if (!$result || mysqli_num_rows($result) === 0) {
                 <form action="../php/admin/admintool.php" method="GET">
                     <input type="submit" class="logout-button" value="Panel admina">
                 </form>
+               <?php
+            /* Sprawdzenie, czy użytkownik ma uprawnienia administratora
+            if (isset($_SESSION['isAdmin']) && $_SESSION['isAdmin'] === true) {
+                echo "<div class='admin'>";
+                echo "<form action='../php/admin/admintool.php' method='GET'>";
+                echo "<input type='submit' class='logout-button' value='Panel admina'>";
+                echo "</form>";
+                echo "</div>";
+            } */
+            ?>
             </div>
             <div class="logout">
                 <form action="../php/process_logout.php" method="POST">
@@ -66,9 +77,9 @@ if (!$result || mysqli_num_rows($result) === 0) {
                     echo "<div class='product-name'>" . $row['name'] . "</div>";
                     echo "<div class='product-price-quantity'>" . $row['price'] . " PLN" . "</div>";
                     echo "<div class='product-add'>";
-                    echo "<form action=\"../php/cart.php\" method=\"POST\">";
-                    echo "<input type=\"hidden\" name=\"product_id\" value=\"" . $row['product_id'] . "\">";
-                    echo "<input type=\"submit\" class=\"add-button\" name=\"add\" value=\"Dodaj do koszyka\">";
+                    echo "<form action='../php/cart.php' method='POST'>";
+                    echo "<input type='hidden' name='product_id' value='" . $row['product_id'] . "'>";
+                    echo "<input type='submit' class='add-button' name='add' value='Dodaj do koszyka'>";
                     echo "</form>";
                     echo "</div>";
                     echo "</div>";
@@ -79,12 +90,13 @@ if (!$result || mysqli_num_rows($result) === 0) {
 
     </main>
     <footer>
-        <p>&copy; 2023 Sklep internetowy. All rights reserved.</p>
+        <p>&copy; 2023 Sklep internetowy</p>
     </footer>
 </body>
 </html>
 
 <?php
 }
+
 mysqli_close($conn);
 ?>

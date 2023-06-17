@@ -34,6 +34,8 @@ textarea {
 input[type="submit"],
 button {
   padding: 10px;
+  margin-top: 10px;
+  margin-left: 10px;
   background-color: #333;
   color: white;
   border: none;
@@ -41,12 +43,6 @@ button {
   cursor: pointer;
 }
 
-/* Style the submit button on hover */
-input[type="submit"]:hover,
-button:hover {
-  background: color #333;
-  ;
-}
 
 .buttonwrapper {
   display: flex;

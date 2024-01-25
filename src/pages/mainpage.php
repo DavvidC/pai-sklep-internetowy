@@ -34,7 +34,7 @@ if (!$result || mysqli_num_rows($result) === 0) {
 <body>
     <header>
         <div class="left">
-            <h1>Strona główna</h1>
+            <h1>XXXXXX</h1>
         </div>
         <div class="right">
             <div class="admin">
